@@ -89,12 +89,7 @@ public class PlayerController : MonoBehaviour
     {
         move=value.Get<Vector2>();
     }
-    void OnAnimatorIK(int layerIndex)
-    {
-      // float reach = anim.GetFloat("RightHandReach");
-       // anim.SetIKPositionWeight(AvatarIKGoal.RightFoot, reach);
-        anim.SetIKPosition(AvatarIKGoal.RightFoot, ik.transform.position);
-    }
+
     private void Move()
     {
         targetSpeed = sprintActive ? sprint : speed;
