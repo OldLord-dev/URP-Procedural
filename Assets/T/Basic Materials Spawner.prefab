@@ -51,4 +51,4 @@ MonoBehaviour:
   overlapTestBoxSize: 1
   spawnedObjectLayer:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 2147483647
