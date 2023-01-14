@@ -22460,7 +22460,7 @@ GameObject:
   - component: {fileID: 1445297104}
   - component: {fileID: 1445297103}
   m_Layer: 0
-  m_Name: HillsTreeSpawner (1)
+  m_Name: BasicMaterialsSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22478,12 +22478,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9bb7f5996f7d8f4eb8f29cf2cd5b12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToSpread: {fileID: 2011586887460620374, guid: 8e49679302503184ea1ca29ed528d8f0,
+  itemToSpread: {fileID: 2011586887460620374, guid: 4a9d327e4f713b44f903e16ba463252d,
     type: 3}
-  numItemsToSpawn: 500
-  itemXSpread: 150
+  numItemsToSpawn: 50
+  itemXSpread: 80
   itemYSpread: 0
-  itemZSpread: 150
+  itemZSpread: 80
 --- !u!4 &1445297104
 Transform:
   m_ObjectHideFlags: 0
@@ -22492,7 +22492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445297102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 40, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
