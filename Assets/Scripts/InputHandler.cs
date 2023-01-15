@@ -2,10 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
     public class InputHandler : MonoBehaviour
     {
-        public Vector2 move;
-        public Vector2 look;
-        public bool jump;
-        public bool sprint;
+        public Vector2 move,look;
+        public bool jump,sprint,pickUp;
+        public float zoom;
         private bool cursorLocked = true;
         private bool cursorInputForLook = true;
 		public void OnMove(InputValue value)
@@ -28,7 +27,19 @@ using UnityEngine.InputSystem;
 		{
 			SprintInput(value.isPressed);
 		}
-        public void MoveInput(Vector2 newMoveDirection)
+        public void OnZoom(InputValue value)
+        {
+            zoom = value.Get<float>();
+        }
+        public void OnPickUp(InputValue value)
+        {
+        //if (value.isPressed && canPickUp)
+        //    {
+        //        anim.SetTrigger("PickUp");
+        //    }
+            PickUpInput(value.isPressed);
+    }
+    public void MoveInput(Vector2 newMoveDirection)
         {
             move = newMoveDirection;
         }
@@ -43,6 +54,14 @@ using UnityEngine.InputSystem;
         public void SprintInput(bool newSprintState)
         {
             sprint = newSprintState;
+        }
+        public void ZoomInput(float newZoomValue)
+        {
+            zoom = newZoomValue;
+        }
+        public void PickUpInput(bool newPickUpState)
+        {
+            pickUp = newPickUpState;
         }
         private void OnApplicationFocus(bool hasFocus)
         {

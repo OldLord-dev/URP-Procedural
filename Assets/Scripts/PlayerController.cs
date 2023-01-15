@@ -13,56 +13,65 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private LayerMask GroundLayers;
+    private AnimationCommand jump,pickUp;
+    private AnimationMovement movement;
+    bool performingAnimation=false;
     private Rigidbody rb;
     private float speed = 3f;
     private float sprint = 6f;
+    private InputHandler inputHandler;
     public Vector3 input;
-    private Vector2 look;
     private float jumpHeight = 1f;
     private float GroundedOffset = -0.14f;
     private bool Grounded = true;
     private float GroundedRadius = 0.28f;
     private GameObject mainCamera;
-    private InputHandler inputHandler;
+
     [Range(0.0f, 0.3f)]
     public float RotationSmoothTime = 0.12f;
-    Vector2 move;
-    // cinemachine
-    private float _cinemachineTargetYaw;
-    private float _cinemachineTargetPitch;
-    public GameObject CinemachineCameraTarget;
-    private const float _threshold = 0.01f;
-    public bool LockCameraPosition = false;
-    public float CameraAngleOverride = 0.0f;
-    [Tooltip("How far in degrees can you move the camera up")]
-    public float TopClamp = 70.0f;
-    [Tooltip("How far in degrees can you move the camera down")]
-    public float BottomClamp = -30.0f;
+    //Vector2 move;
+
     private Animator anim;
-    private bool canPickUp = false;
-    [SerializeField]
-    private GameObject ik;
+   // private bool canPickUp = false;
+
     float targetSpeed;
     public bool sprintActive;
-    public CinemachineVirtualCamera VirtualCamera;
-    CinemachineComponentBase componentBase;
+
+
+
+    GameObject player;
+    private void Start()
+    {
+        jump = new Jump();
+        pickUp = new PickUp();
+        movement = new BlendMove();
+    }
     void Awake()
     {
         if (mainCamera == null)
         {
             mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         }
-        rb = GetComponent<Rigidbody>();
+
+        if(player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+
+
+        CinemachineCameraTarget = GameObject.FindGameObjectWithTag("PlayerCameraRoot");
+
+        rb = player.GetComponent<Rigidbody>();
         inputHandler = GetComponent<InputHandler>();
-        anim = GetComponent<Animator>();
-        componentBase = VirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+        anim = player.GetComponent<Animator>();
+  
     }
     float targetRotation;
     private float _rotationVelocity;
     private void Update()
     {
         GroundedCheck();
-        CameraZoom();
+       // CameraZoom();
     }
     void FixedUpdate()
     {
@@ -70,6 +79,7 @@ public class PlayerController : MonoBehaviour
         Move();
         Reducer();
         CameraRotation();
+        InputInteractions();
     }
     private void Reducer()
     {
@@ -90,26 +100,26 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(reducer.x, rb.velocity.y, reducer.z);
         input.y = 0f;
     }
-    public void OnMove(InputValue value)
-    {
-        move=value.Get<Vector2>();
-    }
-
     private void Move()
     {
-        targetSpeed = sprintActive ? sprint : speed;
-        Vector3 inputDirection = new Vector3(move.x, 0.0f, move.y).normalized;
-        if (move != Vector2.zero)
+        targetSpeed = inputHandler.sprint ? sprint : speed;
+        Vector3 inputDirection = new Vector3(inputHandler.move.x, 0.0f, inputHandler.move.y).normalized;
+
+        if (inputHandler.move != Vector2.zero && !anim.GetBool("PickUp"))
         {
             targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                               mainCamera.transform.eulerAngles.y;
-            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref _rotationVelocity,
+            float rotation = Mathf.SmoothDampAngle(player.transform.eulerAngles.y, targetRotation, ref _rotationVelocity,
                 RotationSmoothTime);
 
-            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            player.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             Vector3 targetDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
-           input = (mainCamera.transform.forward * move.y + mainCamera.transform.right * move.x);
-            Walk();
+           input = (mainCamera.transform.forward * inputHandler.move.y + mainCamera.transform.right * inputHandler.move.x);
+            
+            if (inputHandler.sprint)
+                Run();
+            else
+                Walk();
         }
         else
         {
@@ -121,22 +131,71 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("FreeFall", false);
             anim.SetBool("Jump", false);
+
         }
         else
             anim.SetBool("FreeFall", true);
     }
-    public void OnLook(InputValue value)
+    public void InputInteractions()
     {
-        look = value.Get<Vector2>();
+        if (inputHandler.pickUp && anim.GetBool("CanPickUp"))
+        {
+            pickUp.Execute(anim, inputHandler.pickUp);
+            performingAnimation = true;
+            input = Vector3.zero;
+        }
     }
+    public void OnJump(InputValue value)
+    { 
+        if (value.isPressed && Grounded)
+        {
+            input += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight) * Vector3.up;
+           // anim.SetBool("Jump", true);
+            jump.Execute(anim, true);
+        }
+    }
+    private void GroundedCheck()
+    {
+        Vector3 spherePosition = new Vector3(player.transform.position.x, player.transform.position.y - GroundedOffset,
+            player.transform.position.z);
+        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
+            QueryTriggerInteraction.Ignore);
+
+            anim.SetBool("Grounded", Grounded);
+    }
+
+    private void Idle()
+    {
+        movement.Execute(anim, 0f,0.1f, Time.deltaTime);
+    }
+    private void Walk()
+    {
+        movement.Execute(anim, 0.5f, 0.1f, Time.deltaTime);
+    }
+    private void Run()
+    {
+        movement.Execute(anim, 1f, 0.1f, Time.deltaTime);
+    }
+    
+    private float _cinemachineTargetYaw;
+    private float _cinemachineTargetPitch;
+    private GameObject CinemachineCameraTarget;
+    private const float _threshold = 0.01f;
+    public bool LockCameraPosition = false;
+    public float CameraAngleOverride = 0.0f;
+    [Tooltip("How far in degrees can you move the camera up")]
+    public float TopClamp = 70.0f;
+    [Tooltip("How far in degrees can you move the camera down")]
+    public float BottomClamp = -30.0f;
+
     public void CameraRotation()
     {
-        if (look.sqrMagnitude >= _threshold && !LockCameraPosition)
+        if (inputHandler.look.sqrMagnitude >= _threshold && !LockCameraPosition)
         {
             float deltaTimeMultiplier = 2.0f;
 
-            _cinemachineTargetYaw += look.x * deltaTimeMultiplier;
-            _cinemachineTargetPitch += look.y * deltaTimeMultiplier;
+            _cinemachineTargetYaw += inputHandler.look.x * deltaTimeMultiplier;
+            _cinemachineTargetPitch += inputHandler.look.y * deltaTimeMultiplier;
         }
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
         _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -144,106 +203,11 @@ public class PlayerController : MonoBehaviour
         CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
             _cinemachineTargetYaw, 0.0f);
     }
-    public void OnJump(InputValue value)
-    { 
-        if (value.isPressed && Grounded)
-        {
-            input += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight) * Vector3.up;
-            anim.SetBool("Jump", true);
-        }
-    }
-      public void OnSprint(InputValue value)
-    {
-        SprintInput(value.isPressed);
-    }
-    public void SprintInput(bool newSprintState)
-    {
-            sprintActive = newSprintState;
-        if(sprintActive)
-                Run();
-    }
-    private void GroundedCheck()
-    {
-        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
-            transform.position.z);
-        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
-            QueryTriggerInteraction.Ignore);
 
-            anim.SetBool("Grounded", Grounded);
-    }
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
-    }
-
-    private void Idle()
-    {
-        anim.SetFloat("Speed", 0f, 0.1f, Time.deltaTime);
-    }
-
-    private void Walk()
-    {
-        anim.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
-    }
-
-    private void Run()
-    {
-        anim.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
-    }
-
-    public void OnPickUp(InputValue value)
-    {
-        if (value.isPressed && canPickUp)
-        {
-            anim.SetTrigger("PickUp");
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Interactive"))
-        {
-            canPickUp = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Interactive"))
-        {
-            canPickUp = false;
-        }
-    }
-    public float zoom;
-    public void OnZoom(InputValue value)
-    {
-        zoom=value.Get<float>();
-    }
-    float cameraDistance;
-    private void CameraZoom()
-    {
-        if (zoom != 0)
-        {
-            cameraDistance = zoom*0.001f;
-            if(componentBase is Cinemachine3rdPersonFollow)
-            {
-                (componentBase as Cinemachine3rdPersonFollow).CameraDistance-= cameraDistance;
-            }
-
-        }
-        if (zoom > 0)
-        {
-            if (Camera.main.fieldOfView > 1)
-            {
-               // CinemachineCameraTarget.transform.position.z += 4f;
-            }
-        }
-        if (zoom < 0)
-        {
-            if (Camera.main.fieldOfView < 100)
-            {
-                Camera.main.fieldOfView++;
-            }
-        }
     }
 }
