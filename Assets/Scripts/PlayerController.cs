@@ -1,4 +1,5 @@
- using System.Collections;
+using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Rendering.LookDev;
@@ -38,11 +39,13 @@ public class PlayerController : MonoBehaviour
     [Tooltip("How far in degrees can you move the camera down")]
     public float BottomClamp = -30.0f;
     private Animator anim;
-
+    private bool canPickUp = false;
     [SerializeField]
     private GameObject ik;
     float targetSpeed;
     public bool sprintActive;
+    public CinemachineVirtualCamera VirtualCamera;
+    CinemachineComponentBase componentBase;
     void Awake()
     {
         if (mainCamera == null)
@@ -52,12 +55,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         inputHandler = GetComponent<InputHandler>();
         anim = GetComponent<Animator>();
+        componentBase = VirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
     }
     float targetRotation;
     private float _rotationVelocity;
     private void Update()
     {
         GroundedCheck();
+        CameraZoom();
     }
     void FixedUpdate()
     {
@@ -186,5 +191,59 @@ public class PlayerController : MonoBehaviour
     private void Run()
     {
         anim.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
+    }
+
+    public void OnPickUp(InputValue value)
+    {
+        if (value.isPressed && canPickUp)
+        {
+            anim.SetTrigger("PickUp");
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Interactive"))
+        {
+            canPickUp = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Interactive"))
+        {
+            canPickUp = false;
+        }
+    }
+    public float zoom;
+    public void OnZoom(InputValue value)
+    {
+        zoom=value.Get<float>();
+    }
+    float cameraDistance;
+    private void CameraZoom()
+    {
+        if (zoom != 0)
+        {
+            cameraDistance = zoom*0.001f;
+            if(componentBase is Cinemachine3rdPersonFollow)
+            {
+                (componentBase as Cinemachine3rdPersonFollow).CameraDistance-= cameraDistance;
+            }
+
+        }
+        if (zoom > 0)
+        {
+            if (Camera.main.fieldOfView > 1)
+            {
+               // CinemachineCameraTarget.transform.position.z += 4f;
+            }
+        }
+        if (zoom < 0)
+        {
+            if (Camera.main.fieldOfView < 100)
+            {
+                Camera.main.fieldOfView++;
+            }
+        }
     }
 }

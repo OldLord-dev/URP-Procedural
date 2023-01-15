@@ -8,7 +8,7 @@ public class RaycastAlignerNoOverlap : MonoBehaviour
     public float raycastDistance = 100f;
     public float overlapTestBoxSize = 1f;
     public LayerMask spawnedObjectLayer;
-
+    public Vector3 offset = new Vector3(0, 0.2f, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +45,6 @@ public class RaycastAlignerNoOverlap : MonoBehaviour
     void Pick(Vector3 positionToSpawn, Quaternion rotationToSpawn)
     {
         int randomIndex = Random.Range(0, itemsToPickFrom.Length);
-        GameObject clone = Instantiate(itemsToPickFrom[randomIndex], positionToSpawn-new Vector3(0,0.2f,0), Quaternion.identity);
+        GameObject clone = Instantiate(itemsToPickFrom[randomIndex], positionToSpawn-offset, Quaternion.identity);
     }
 }
