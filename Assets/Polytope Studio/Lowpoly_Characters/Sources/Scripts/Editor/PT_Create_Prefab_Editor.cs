@@ -493,7 +493,7 @@ namespace Polytope
 
         public void ExpansionDragAndDrop()
         {
-            Event evt = Event.current;
+            UnityEngine.Event evt = UnityEngine.Event.current;
             Rect area = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
 
             // Create the box

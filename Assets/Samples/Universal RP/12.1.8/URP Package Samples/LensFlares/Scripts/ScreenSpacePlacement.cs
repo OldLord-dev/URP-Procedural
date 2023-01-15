@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 [ExecuteAlways]
 public class ScreenSpacePlacement : MonoBehaviour
@@ -12,7 +14,7 @@ public class ScreenSpacePlacement : MonoBehaviour
 
     void OnGUI()
     {
-        Event currentEvent = Event.current;
+        UnityEngine.Event currentEvent = UnityEngine.Event.current;
         Vector2 mousePos = new Vector2();
 
         mousePos.x = currentEvent.mousePosition.x;

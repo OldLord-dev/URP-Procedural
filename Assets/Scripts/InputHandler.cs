@@ -33,10 +33,6 @@ using UnityEngine.InputSystem;
         }
         public void OnPickUp(InputValue value)
         {
-        //if (value.isPressed && canPickUp)
-        //    {
-        //        anim.SetTrigger("PickUp");
-        //    }
             PickUpInput(value.isPressed);
     }
     public void MoveInput(Vector2 newMoveDirection)
