@@ -36,14 +36,14 @@
                     "name": "Sprint",
                     "type": "PassThrough",
                     "id": "03ededc4-532f-4f10-bfaf-77fa045d90b9",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "PickUp",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "95ff120d-9aba-4ef3-a641-6cecf6883fba",
                     "expectedControlType": "Button",
                     "processors": "",
