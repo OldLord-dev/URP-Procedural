@@ -12,7 +12,7 @@ public class RaycastAlignerNoOverlap : MonoBehaviour
     public Vector3 offset = new Vector3(0, 0.2f, 0);
     public int k=0;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         PositionRaycast();
     }
@@ -46,7 +46,14 @@ public class RaycastAlignerNoOverlap : MonoBehaviour
 
     void Pick(Vector3 positionToSpawn, Quaternion rotationToSpawn)
     {
-        int randomIndex = Random.Range(0, itemsToPickFrom.Length);
-        GameObject clone = Instantiate(itemsToPickFrom[randomIndex], positionToSpawn-offset, Quaternion.identity);
+        //int randomIndex = Random.Range(0, itemsToPickFrom.Length);
+        GameObject tree = Pool.singleton.Get("BasicTree");
+        if (tree != null)
+        {
+            tree.transform.position = positionToSpawn - offset;
+            tree.transform.rotation = Quaternion.identity;
+            tree.SetActive(true);
+        }
+        //GameObject clone = Instantiate(itemsToPickFrom[randomIndex], positionToSpawn-offset, Quaternion.identity);
     }
 }

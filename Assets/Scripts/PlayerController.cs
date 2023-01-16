@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private LayerMask GroundLayers;
     private AnimationCommand jump,pickUp;
     private AnimationMovement movement;
-    bool performingAnimation=false;
+   // bool performingAnimation=false;
     private Rigidbody rb;
     private float speed = 3f;
     private float sprint = 6f;
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
         if (inputHandler.pickUp && anim.GetBool("CanPickUp"))
         {
             pickUp.Execute(anim, inputHandler.pickUp);
-            performingAnimation = true;
+            //performingAnimation = true;
             input = Vector3.zero;
         }
     }

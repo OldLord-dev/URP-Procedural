@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Interactive
   - PlayerCameraRoot
+  - BasicTree
+  - HillTreeSpawner
   layers:
   - Default
   - TransparentFX

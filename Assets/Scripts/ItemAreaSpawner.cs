@@ -12,7 +12,7 @@ public class ItemAreaSpawner : MonoBehaviour
     public float itemZSpread = 10;
 
     // Start is called before the first frame update
-    void Start()
+    public void StartSpawning()
     {
         for (int i = 0; i < numItemsToSpawn; i++)
         {
@@ -23,6 +23,14 @@ public class ItemAreaSpawner : MonoBehaviour
     void SpreadItem()
     {
         Vector3 randPosition = new Vector3(Random.Range(-itemXSpread, itemXSpread), Random.Range(-itemYSpread, itemYSpread), Random.Range(-itemZSpread, itemZSpread)) + transform.position;
-        GameObject clone = Instantiate(itemToSpread, randPosition, itemToSpread.transform.rotation);
+        GameObject spawner = Pool.singleton.Get("HillTreeSpawner");
+        if (spawner != null)
+        {
+            spawner.transform.position = randPosition;
+            spawner.transform.rotation = itemToSpread.transform.rotation;
+            spawner.SetActive(true);
+            spawner.SetActive(false);
+        }
+        //GameObject clone = Instantiate(itemToSpread, randPosition, itemToSpread.transform.rotation);
     }
 }
