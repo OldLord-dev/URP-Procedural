@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4680757731156830890}
   - component: {fileID: 4680757731157960810}
   - component: {fileID: 1432677704277100469}
-  m_Layer: 0
+  - component: {fileID: 6716886073270915325}
+  m_Layer: 9
   m_Name: Rock_03
-  m_TagString: Interactive
+  m_TagString: Rock_2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,3 +98,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3087452, y: 0.15019415, z: 0.30923247}
   m_Center: {x: 0.006947659, y: 0.011773393, z: 0.0016698837}
+--- !u!114 &6716886073270915325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4680757731160225450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83223b77f9e39614fa306eb443198edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 030acb86a530fdc41924c3ce0448afe2, type: 2}

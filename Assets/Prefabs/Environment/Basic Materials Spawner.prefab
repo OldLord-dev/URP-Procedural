@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4483925213923849270}
   m_Layer: 0
   m_Name: Basic Materials Spawner
-  m_TagString: Untagged
+  m_TagString: MaterialsSpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,9 +49,11 @@ MonoBehaviour:
   - {fileID: 1493958779012120596, guid: b9de24523a11d714db3851b5f0f9d527, type: 3}
   - {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
   - {fileID: 4680757731160225450, guid: 0fde05fa0f3321942a21896ff4f0856f, type: 3}
+  prefabTags: {fileID: 11400000, guid: 5bfdaebc11f0fc44891250ac4ef0d411, type: 2}
   raycastDistance: 100
   overlapTestBoxSize: 1
   spawnedObjectLayer:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 639
   offset: {x: 0, y: 0, z: 0}
+  k: 0

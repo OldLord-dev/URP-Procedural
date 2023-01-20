@@ -8,6 +8,13 @@ TagManager:
   - PlayerCameraRoot
   - BasicTree
   - HillTreeSpawner
+  - Walkable
+  - Details
+  - DetailsSpawner
+  - MaterialsSpawner
+  - Branch
+  - Rock
+  - Rock_2
   layers:
   - Default
   - TransparentFX
@@ -18,7 +25,7 @@ TagManager:
   - Terrain
   - StartPlains
   - Village
-  - 
+  - Interactive
   - 
   - 
   - 

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private LayerMask GroundLayers;
-    private AnimationCommand jump,pickUp;
+    private AnimationCommand jump,pickUp,mining;
     private AnimationMovement movement;
    // bool performingAnimation=false;
     private Rigidbody rb;
@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
         jump = new Jump();
         pickUp = new PickUp();
         movement = new BlendMove();
+        mining = new Mining();
     }
     void Awake()
     {
@@ -144,6 +145,12 @@ public class PlayerController : MonoBehaviour
             //performingAnimation = true;
             input = Vector3.zero;
         }
+
+        if (inputHandler.mining)
+        {
+            mining.Execute(anim, inputHandler.mining);
+        }else
+            mining.Execute(anim, inputHandler.mining);
     }
     public void OnJump(InputValue value)
     { 

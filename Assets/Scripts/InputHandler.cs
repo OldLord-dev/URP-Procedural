@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
     public class InputHandler : MonoBehaviour
     {
         public Vector2 move,look;
-        public bool jump,sprint,pickUp;
+        public bool jump,sprint,pickUp,mining;
         public float zoom;
         private bool cursorLocked = true;
         private bool cursorInputForLook = true;
@@ -34,8 +34,12 @@ using UnityEngine.InputSystem;
         public void OnPickUp(InputValue value)
         {
             PickUpInput(value.isPressed);
-    }
-    public void MoveInput(Vector2 newMoveDirection)
+        }
+    	public void OnMining(InputValue value)
+		{
+            MiningInput(value.isPressed);
+		}
+        public void MoveInput(Vector2 newMoveDirection)
         {
             move = newMoveDirection;
         }
@@ -51,6 +55,10 @@ using UnityEngine.InputSystem;
         {
             sprint = newSprintState;
         }
+         public void MiningInput(bool newSprintState)
+         {
+            mining = newSprintState;
+         }
         public void ZoomInput(float newZoomValue)
         {
             zoom = newZoomValue;

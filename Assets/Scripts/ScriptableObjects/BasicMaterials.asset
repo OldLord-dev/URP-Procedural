@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a177d715c0503cc42a430adda0454cf9, type: 3}
-  m_Name: BasicTree
+  m_Script: {fileID: 11500000, guid: c70cbdee3f4223f478a603359031e628, type: 3}
+  m_Name: BasicMaterials
   m_EditorClassIdentifier: 
-  asteroidScale: 0
-  asteroidPoints: 2
+  tags:
+  - Branch
+  - Rock
+  - Rock_2

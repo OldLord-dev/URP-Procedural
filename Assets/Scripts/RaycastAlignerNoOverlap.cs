@@ -6,12 +6,13 @@ using UnityEngine;
 public class RaycastAlignerNoOverlap : MonoBehaviour
 {
     public GameObject[] itemsToPickFrom;
+    public TagsSet prefabTags;
     public float raycastDistance = 100f;
     public float overlapTestBoxSize = 1f;
     public LayerMask spawnedObjectLayer;
     public Vector3 offset = new Vector3(0, 0.2f, 0);
     public int k=0;
-    // Start is called before the first frame update
+   // public string prefabTag;
     void OnEnable()
     {
         PositionRaycast();
@@ -37,17 +38,13 @@ public class RaycastAlignerNoOverlap : MonoBehaviour
                 Pick(hit.point, spawnRotation);
                 return;
             }
-            else
-            {
-                //Destroy(this);
-            }
         }
     }
 
     void Pick(Vector3 positionToSpawn, Quaternion rotationToSpawn)
     {
-        //int randomIndex = Random.Range(0, itemsToPickFrom.Length);
-        GameObject tree = Pool.singleton.Get("BasicTree");
+        int randomIndex = Random.Range(0, prefabTags.Tags.Length);
+        GameObject tree = Pool.singleton.Get(prefabTags.Tags[randomIndex]);
         if (tree != null)
         {
             tree.transform.position = positionToSpawn - offset;

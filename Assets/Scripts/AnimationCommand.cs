@@ -18,6 +18,14 @@ public class PickUp : AnimationCommand
     }
 }
 
+public class Mining : AnimationCommand
+{
+    public override void Execute(Animator anim, bool state)
+    {
+        anim.SetBool("Mining", state);
+    }
+}
+
 public class DoNothing : AnimationCommand
 {
     public override void Execute(Animator anim, bool state)

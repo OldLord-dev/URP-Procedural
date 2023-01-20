@@ -6,7 +6,7 @@ public class ItemAreaSpawner : MonoBehaviour
 {
     public GameObject itemToSpread;
     public int numItemsToSpawn = 10;
-
+    public string spawnerTag;
     public float itemXSpread = 10;
     public float itemYSpread = 0;
     public float itemZSpread = 10;
@@ -19,11 +19,10 @@ public class ItemAreaSpawner : MonoBehaviour
             SpreadItem();
         }
     }
-
     void SpreadItem()
     {
         Vector3 randPosition = new Vector3(Random.Range(-itemXSpread, itemXSpread), Random.Range(-itemYSpread, itemYSpread), Random.Range(-itemZSpread, itemZSpread)) + transform.position;
-        GameObject spawner = Pool.singleton.Get("HillTreeSpawner");
+        GameObject spawner = Pool.singleton.Get(spawnerTag);
         if (spawner != null)
         {
             spawner.transform.position = randPosition;

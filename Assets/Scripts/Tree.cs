@@ -5,15 +5,13 @@ public class Tree : MonoBehaviour
    // [SerializeField]
    // public Event onAsteroidDestroyed;
     [SerializeField]
-    private TreeData treeData;
+   // private TreeData treeData;
     //private SpriteRenderer spriteRenderer;
     //private Rigidbody2D rb;
     //private Vector2 randomDirection;
     void Start()
     {
-        //spriteRenderer = GetComponent<SpriteRenderer>();
-        //transform.localScale *= asteroidData.AsteroidScale;
-       // rb = GetComponent<Rigidbody2D>();
+
     }
 
     private void OnEnable()

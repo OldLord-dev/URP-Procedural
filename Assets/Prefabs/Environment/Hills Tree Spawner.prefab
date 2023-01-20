@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemsToPickFrom:
   - {fileID: 1612273161005096, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
-  - {fileID: 1612273161005096, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
+  - {fileID: 1458573784885960, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
   raycastDistance: 100
   overlapTestBoxSize: 1
   spawnedObjectLayer:
@@ -54,3 +54,4 @@ MonoBehaviour:
     m_Bits: 191
   offset: {x: 0, y: 0.3, z: 0}
   k: 0
+  prefabTag: BasicTree

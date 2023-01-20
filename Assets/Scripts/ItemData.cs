@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-[CreateAssetMenu(fileName = "treeData", menuName = "Tree Data", order = 50)]
-public class TreeData : ScriptableObject
+[CreateAssetMenu(fileName = "itemData", menuName = "Item Data", order = 50)]
+public class ItemData : ScriptableObject
 {
     //[SerializeField]
    // private SpriteSet asteroidsSpriteSet;
     [SerializeField]
-    private float asteroidScale;
+    private string itemName;
 
     [SerializeField]
-    private float asteroidPoints;
+    private ItemType itemType;
 
-    public float AsteroidScale { get { return asteroidScale; } }
+
+
+    public enum ItemType { Collectable, Tree };
+    public string ItemName { get { return itemName; } }
     //public float AsteroidSpeed { get { return asteroidSpeed; } }
-    public float AsteroidPoints { get { return asteroidPoints; } }
+    public ItemType GetItemType { get { return itemType; } }
     //public SpriteSet AsteroidsSpriteSet { get { return asteroidsSpriteSet; } }
 }

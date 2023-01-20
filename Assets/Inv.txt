@@ -1,0 +1,6 @@
+nazwa
+typ
+opis
+
+
+crafting - klik na UI przy danym narzedziu
