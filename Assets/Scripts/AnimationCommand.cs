@@ -25,7 +25,13 @@ public class Mining : AnimationCommand
         anim.SetBool("Mining", state);
     }
 }
-
+public class Attacking : AnimationCommand
+{
+    public override void Execute(Animator anim, bool state)
+    {
+        anim.SetBool("Attacking", state);
+    }
+}
 public class DoNothing : AnimationCommand
 {
     public override void Execute(Animator anim, bool state)

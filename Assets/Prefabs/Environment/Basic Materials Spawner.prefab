@@ -44,11 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fd9c73584b1094cad59a57ddc21f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToPickFrom:
-  - {fileID: 1493958779012120596, guid: b9de24523a11d714db3851b5f0f9d527, type: 3}
-  - {fileID: 1493958779012120596, guid: b9de24523a11d714db3851b5f0f9d527, type: 3}
-  - {fileID: 5202732821079448320, guid: cebfacc247a640945a2c30b442202fca, type: 3}
-  - {fileID: 4680757731160225450, guid: 0fde05fa0f3321942a21896ff4f0856f, type: 3}
   prefabTags: {fileID: 11400000, guid: 5bfdaebc11f0fc44891250ac4ef0d411, type: 2}
   raycastDistance: 100
   overlapTestBoxSize: 1
@@ -56,4 +51,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 639
   offset: {x: 0, y: 0, z: 0}
-  k: 0

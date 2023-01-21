@@ -44,14 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fd9c73584b1094cad59a57ddc21f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToPickFrom:
-  - {fileID: 1612273161005096, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
-  - {fileID: 1458573784885960, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
+  prefabTags: {fileID: 11400000, guid: 4d995eb8d8ff9c6498d22d13c03e7d58, type: 2}
   raycastDistance: 100
   overlapTestBoxSize: 1
   spawnedObjectLayer:
     serializedVersion: 2
     m_Bits: 191
   offset: {x: 0, y: 0.3, z: 0}
-  k: 0
-  prefabTag: BasicTree

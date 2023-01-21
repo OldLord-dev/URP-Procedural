@@ -9,12 +9,19 @@ TagManager:
   - BasicTree
   - HillTreeSpawner
   - Walkable
-  - Details
   - DetailsSpawner
   - MaterialsSpawner
   - Branch
   - Rock
   - Rock_2
+  - CrystalVein
+  - BasicTree_2
+  - BasicTree_3
+  - Grass
+  - Grass_2
+  - Flower_1
+  - Flower_2
+  - Flower_3
   layers:
   - Default
   - TransparentFX

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private LayerMask GroundLayers;
-    private AnimationCommand jump,pickUp,mining;
+    private AnimationCommand jump,pickUp,mining,attacking;
     private AnimationMovement movement;
    // bool performingAnimation=false;
     private Rigidbody rb;
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool Grounded = true;
     private float GroundedRadius = 0.28f;
     private GameObject mainCamera;
-
+    public int eqTool = 0;
     [Range(0.0f, 0.3f)]
     public float RotationSmoothTime = 0.12f;
     //Vector2 move;
@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
         pickUp = new PickUp();
         movement = new BlendMove();
         mining = new Mining();
+        attacking = new Attacking();
     }
     void Awake()
     {
@@ -148,9 +149,24 @@ public class PlayerController : MonoBehaviour
 
         if (inputHandler.mining)
         {
-            mining.Execute(anim, inputHandler.mining);
+            switch (eqTool)
+            {
+                case 0:
+                    mining.Execute(anim, inputHandler.mining);
+                    break;
+                case 1:
+                    attacking.Execute(anim, inputHandler.mining);
+                    break;
+                    default:
+                    break;
+            }
+            
         }else
+        {
             mining.Execute(anim, inputHandler.mining);
+            attacking.Execute(anim, inputHandler.mining);
+        }
+
     }
     public void OnJump(InputValue value)
     { 

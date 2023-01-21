@@ -9,9 +9,9 @@ public class CrystalVein : MonoBehaviour
     private List<GameObject> crystals= new List<GameObject>();
     private List<(Vector3, Quaternion)> transformList = new List<(Vector3, Quaternion)>();
     public GameObject nagroda;
-    int hitCount = 0;
-    bool block;
-    int crystalfLeft;
+    private int hitCount = 0;
+    private bool block;
+    private int crystalfLeft;
     private void Start()
     {
         foreach(GameObject go in crystals)
@@ -75,7 +75,8 @@ public class CrystalVein : MonoBehaviour
         crystals[crystalfLeft - 1].SetActive(false);
         if(crystalfLeft>0)
             crystalfLeft--;
-        //crystals.Remove(crystals[crystals.Count - 1]);
+        if (crystalfLeft == 0)
+            this.gameObject.SetActive(false);
     }
 
     IEnumerator Wait1Seconds()
