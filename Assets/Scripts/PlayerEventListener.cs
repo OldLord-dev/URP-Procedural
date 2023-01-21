@@ -8,26 +8,32 @@ public class PlayerEventListener : MonoBehaviour
 
     [SerializeField]
     private BoxCollider boxCollider;
+    [SerializeField]
+    private Transform leftHandTransform;
     Collider coll;
     void Start()
     {
         anim = GetComponent<Animator>();
     }
 
-    void Update()
+    public void OnGrabAnimation()
     {
-        
+        coll.gameObject.transform.position = leftHandTransform.position;
+        coll.gameObject.transform.position= coll.ClosestPoint(coll.gameObject.transform.position)-Vector3.up*0.1f;
+        coll.gameObject.transform.SetParent(leftHandTransform, true);
+
     }
     public void AnimationDone()
     {
         anim.SetBool("PickUp", false);
         anim.SetBool("CanPickUp", false);
-        coll.gameObject.SetActive(false);
+        coll.gameObject.transform.parent.DetachChildren();
+        coll.gameObject.SetActive(false);   
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 9)
-        {
+        { 
             coll = other;
             anim.SetBool("CanPickUp", true);
         }
@@ -36,11 +42,9 @@ public class PlayerEventListener : MonoBehaviour
     {
         if (other.gameObject.layer == 9)
         {
-            anim.SetBool("CanPickUp", false);
-
+                anim.SetBool("CanPickUp", false);
         }
     }
-
 
     public void TurnOnCollider()
     {
