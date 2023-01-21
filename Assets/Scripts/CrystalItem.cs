@@ -20,7 +20,7 @@ public class CrystalItem : MonoBehaviour
 
     IEnumerator Wait2Seconds()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         rb.isKinematic = true;
     }
 }

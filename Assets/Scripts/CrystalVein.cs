@@ -7,23 +7,43 @@ public class CrystalVein : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> crystals= new List<GameObject>();
-    private List<GameObject> crystalsTransform = new List<GameObject>();
+    private List<(Vector3, Quaternion)> transformList = new List<(Vector3, Quaternion)>();
     public GameObject nagroda;
     int hitCount = 0;
     bool block;
+    int crystalfLeft;
+    private void Start()
+    {
+        foreach(GameObject go in crystals)
+        {
+            transformList.Add((go.transform.localPosition, go.transform.localRotation));
+        }
+    }
+    private void OnDisable()
+    {
+        int i = 0;
+        foreach (var (pos, rot) in transformList)
+        {
+            crystals[i].transform.localPosition = pos;
+            crystals[i].transform.localRotation = rot;
+            crystals[i].SetActive(true);
+            Destroy(crystals[i].GetComponent<Rigidbody>());
+            i++;
+        }
+    }
     private void OnEnable()
     {
-        crystalsTransform = crystals;
+        crystalfLeft = crystals.Count;
     }
-    public void OnPickaxeHit()
+    private void OnPickaxeHit()
     {
         if (hitCount == 4)
         {
-            crystals[crystals.Count - 1].AddComponent<Rigidbody>();
-           // crystals[crystals.Count - 1].layer = 9;
+            crystals[crystalfLeft - 1].AddComponent<Rigidbody>();
             StartCoroutine(Wait2Seconds());
             hitCount = 0;
-        }else
+        }
+        else
         hitCount++;
         Debug.Log(hitCount);
     }
@@ -43,16 +63,24 @@ public class CrystalVein : MonoBehaviour
     {
         if (other.CompareTag("Interactive"))
         {
-            block = false;
+            StartCoroutine(Wait1Seconds());
         }
     }
     IEnumerator Wait2Seconds()
     {
         yield return new WaitForSeconds(2);
-        Instantiate(nagroda, crystals[crystals.Count - 1].transform.position,Quaternion.identity);
-        Instantiate(nagroda, crystals[crystals.Count - 1].transform.position, Quaternion.identity);
-        Instantiate(nagroda, crystals[crystals.Count - 1].transform.position, Quaternion.identity);
-        crystals[crystals.Count - 1].SetActive(false);
-        crystals.Remove(crystals[crystals.Count - 1]);
+        Instantiate(nagroda, crystals[crystalfLeft - 1].transform.position,Quaternion.identity);
+        Instantiate(nagroda, crystals[crystalfLeft - 1].transform.position, Quaternion.identity);
+        Instantiate(nagroda, crystals[crystalfLeft - 1].transform.position, Quaternion.identity);
+        crystals[crystalfLeft - 1].SetActive(false);
+        if(crystalfLeft>0)
+            crystalfLeft--;
+        //crystals.Remove(crystals[crystals.Count - 1]);
     }
-}
+
+    IEnumerator Wait1Seconds()
+    {
+        yield return new WaitForSeconds(1);
+        block = false;
+    }
+    }
