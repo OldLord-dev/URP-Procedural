@@ -12,7 +12,7 @@ public class PoolItem
 public class Pool : MonoBehaviour
 {
     [SerializeField]
-    private Event onPoolReady;
+    private CustomEvent onPoolReady;
     public static Pool singleton;
     public List<PoolItem> items;
     public List<GameObject> pooledItems;

@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class EventListener : MonoBehaviour
 {
-    public Event gameEvent;
+    public CustomEvent gameEvent;
     public UnityEvent response;
 
     private void OnEnable()
