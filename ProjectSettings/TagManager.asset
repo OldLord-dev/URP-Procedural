@@ -22,6 +22,7 @@ TagManager:
   - Flower_1
   - Flower_2
   - Flower_3
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
