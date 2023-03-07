@@ -17,7 +17,10 @@ public class CrystalItem : MonoBehaviour
     {
         rb.isKinematic = true;
     }
-
+    private void OnEnable()
+    {
+        rb.isKinematic = false;
+    }
     IEnumerator Wait2Seconds()
     {
         yield return new WaitForSeconds(1);

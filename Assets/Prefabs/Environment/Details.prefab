@@ -49,5 +49,5 @@ MonoBehaviour:
   overlapTestBoxSize: 1
   spawnedObjectLayer:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 575
   offset: {x: 0, y: 0, z: 0}

@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
     private bool Grounded = true;
     private float GroundedRadius = 0.28f;
     private GameObject mainCamera;
-    public int eqTool = 0;
+    //public Float eqTool;
+    private float eqSlot;
     [Range(0.0f, 0.3f)]
     public float RotationSmoothTime = 0.12f;
     //Vector2 move;
@@ -138,6 +139,7 @@ public class PlayerController : MonoBehaviour
         else
             anim.SetBool("FreeFall", true);
     }
+    public GameObject pick, axe;
     public void InputInteractions()
     {
         if (inputHandler.pickUp && anim.GetBool("CanPickUp"))
@@ -146,22 +148,47 @@ public class PlayerController : MonoBehaviour
             //performingAnimation = true;
             input = Vector3.zero;
         }
-
-        if (inputHandler.mining)
+        if (inputHandler.eqSlot1)
         {
-            switch (eqTool)
-            {
-                case 0:
+            eqSlot = 1;
+        }
+        else if (inputHandler.eqSlot2){
+            eqSlot = 2;
+        }else if(inputHandler.eqSlot3){
+             eqSlot = 3;
+
+        }
+       // Debug.Log(eqSlot);
+       // Debug.Log(inputHandler.eqSlot1);
+
+        //attack = inputHandler.eq;
+        //  
+        //if(eqTool.GetEqSlot>0)
+        //eqTool = inputHandler.eqSlot;
+        if (inputHandler.mining || inputHandler.eqSlot1|| inputHandler.eqSlot2|| inputHandler.eqSlot3)
+            switch (eqSlot)
+        {
+            case 1:
+                pick.SetActive(true);
+                axe.SetActive(false);
+                anim.SetBool("EquippedTool", true);
                     mining.Execute(anim, inputHandler.mining);
-                    break;
-                case 1:
+                break;
+            case 2:
+                pick.SetActive(false);
+                axe.SetActive(true);
+                anim.SetBool("EquippedTool", true);
                     attacking.Execute(anim, inputHandler.mining);
-                    break;
-                    default:
-                    break;
-            }
-            
-        }else
+                break;
+            case 0:
+                break;
+            default:
+                 pick.SetActive(false);
+                 axe.SetActive(false);
+                 anim.SetBool("EquippedTool", false);
+                break;
+        }
+        else
         {
             mining.Execute(anim, inputHandler.mining);
             attacking.Execute(anim, inputHandler.mining);

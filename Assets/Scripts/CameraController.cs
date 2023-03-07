@@ -2,16 +2,12 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
     private InputHandler inputHandler;
 
-    // cinemachine
-
     float cameraDistance;
-    //public float zoom;
     CinemachineComponentBase componentBase;
     public CinemachineVirtualCamera VirtualCamera;
     void Start()
@@ -20,11 +16,8 @@ public class CameraController : MonoBehaviour
         
         componentBase = VirtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
     }
-
-    // Update is called once per frame
     void Update()
     {
-        //CameraRotation();
         CameraZoom();
     }
 
@@ -35,6 +28,7 @@ public class CameraController : MonoBehaviour
             cameraDistance = inputHandler.zoom * 0.001f;
             if (componentBase is Cinemachine3rdPersonFollow)
             {
+                Debug.Log((componentBase as Cinemachine3rdPersonFollow).CameraDistance);
                 (componentBase as Cinemachine3rdPersonFollow).CameraDistance -= cameraDistance;
             }
         }  

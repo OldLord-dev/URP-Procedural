@@ -9,6 +9,8 @@ public class PlayerEventListener : MonoBehaviour
     [SerializeField]
     private BoxCollider boxCollider;
     [SerializeField]
+    private BoxCollider axeCollider;
+    [SerializeField]
     private Transform leftHandTransform;
     Collider coll;
     void Start()
@@ -49,9 +51,11 @@ public class PlayerEventListener : MonoBehaviour
     public void TurnOnCollider()
     {
         boxCollider.enabled = true;
+        axeCollider.enabled = true;
     }
     public void OnAnimationEnd()
     {
         boxCollider.enabled = false;
+        axeCollider.enabled = false;
     }
 }

@@ -8,7 +8,8 @@ public class CrystalVein : MonoBehaviour
     [SerializeField]
     private List<GameObject> crystals= new List<GameObject>();
     private List<(Vector3, Quaternion)> transformList = new List<(Vector3, Quaternion)>();
-    public GameObject nagroda;
+    [SerializeField]
+    private TagsSet nagroda;
     private int hitCount = 0;
     private bool block;
     private int crystalfLeft;
@@ -69,9 +70,16 @@ public class CrystalVein : MonoBehaviour
     IEnumerator Wait2Seconds()
     {
         yield return new WaitForSeconds(2);
-        Instantiate(nagroda, crystals[crystalfLeft - 1].transform.position,Quaternion.identity);
-        Instantiate(nagroda, crystals[crystalfLeft - 1].transform.position, Quaternion.identity);
-        Instantiate(nagroda, crystals[crystalfLeft - 1].transform.position, Quaternion.identity);
+        for(int i =0; i<Random.Range(1, 4); i++)
+        {
+            GameObject item = Pool.singleton.Get(nagroda.Tags[0]);
+            if (item != null)
+            {
+                item.transform.position = crystals[crystalfLeft - 1].transform.position;
+                item.transform.rotation = Quaternion.identity;
+                item.SetActive(true);
+            }
+        }
         crystals[crystalfLeft - 1].SetActive(false);
         if(crystalfLeft>0)
             crystalfLeft--;

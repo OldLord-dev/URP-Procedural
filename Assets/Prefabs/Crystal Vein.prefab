@@ -682,7 +682,7 @@ MonoBehaviour:
   - {fileID: 7306345497711031840}
   - {fileID: 7307081617648561736}
   - {fileID: 7306082541954922246}
-  nagroda: {fileID: 7018046121886376889, guid: 9f2a100100be46446b2c303d2f4f91ea, type: 3}
+  nagroda: {fileID: 11400000, guid: b6da46f322521754bb2d525d153a5b00, type: 2}
 --- !u!1 &7306778135780797354
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33222949445572694}
   - component: {fileID: 23050206849376476}
   - component: {fileID: -7685408063639133839}
-  - component: {fileID: 3103845320931284262}
   - component: {fileID: 1338674423917862835}
   - component: {fileID: 4474107122287699917}
   - component: {fileID: 6718065872452031650}
@@ -100,20 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaeaba95ccc5ad2438fc5afc2c290b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!64 &3103845320931284262
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612273161005096}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 15977c94193725642b83e5c7be73b2e8, type: 3}
+  nagroda: {fileID: 11400000, guid: 67dced4d0c95bca4cb88c0e46be9391c, type: 2}
 --- !u!65 &1338674423917862835
 BoxCollider:
   m_ObjectHideFlags: 0

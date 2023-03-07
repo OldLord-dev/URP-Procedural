@@ -23,6 +23,10 @@ TagManager:
   - Flower_2
   - Flower_3
   - Checkpoint
+  - Crystal
+  - CrystalPink
+  - CrystalBlue
+  - Axe
   layers:
   - Default
   - TransparentFX
